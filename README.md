@@ -8,7 +8,7 @@
 
 Most AI custom instructions are a few sentences. These aren't.
 
-This suite gives each platform a full behavioral contract: a structured response format, a verbosity dial, a slash command CLI, and a built-in red-team audit engine — all tuned specifically for how that platform works. Paste a file in, and the AI operates with a consistent, predictable personality across every session.
+This suite gives each platform a full behavioral contract: a verbosity dial that controls how much or how little the AI says, a structured response format, a slash command CLI, and a built-in red-team audit engine — all tuned specifically for how that platform works. Paste a file in, and the AI operates with a consistent, predictable personality across every session.
 
 Three platforms. Three files. One unified experience.
 
@@ -75,37 +75,48 @@ ai-custom-instructions/
 
 Every platform gets the same core behavioral guarantees — no matter what you ask:
 
-### 📌 Response Stamps
-Every response opens and closes with a unique, timestamped ID:
-```
-`[2026-08-01 07:29 PM - REQ-2026213-192901 - Your Topic Here]`
-```
-Useful for logging, referencing past responses, and keeping sessions auditable.
-
-### 🧠 Expert Context Table
-Each response begins with a structured header identifying the relevant expert domain, the refined version of your question, and the response plan — before a single word of the actual answer.
-
 ### 📊 Verbosity Dial (`v=[0-5]`)
-Six distinct output modes, set with a single command:
+
+This is the master control. Everything else in this suite — whether the context table shows a keyword index, whether the expansion layer fires, how deep the AI goes — is tied to your verbosity setting. Set it once and it holds for the session.
 
 | Level | Label | What You Get |
 |:---:|:---|:---|
 | `v=0` | Silent | One line or one word |
-| `v=1` | Terse | Bullets only |
+| `v=1` | Terse | Bullets only, no elaboration |
 | `v=2` | Concise | **Default** — essential detail, no padding |
 | `v=3` | Thorough | Full explanation + See Also / Rabbit Holes |
 | `v=4` | Comprehensive | Deep detail + technical keyword index |
 | `v=5` | Exhaustive | Maximum depth, multi-turn, full breakdown |
 
-### ⚔️ RISEN Audit Engine (`/review`)
-Type `/review` after any response to trigger an adversarial red-team critique. The AI switches into the role of a security and quality auditor — finding logic gaps, edge cases, and protocol violations in its own output. Results come back as a structured report with `PASS / PASS WITH WARNINGS / FAIL` verdicts and severity-bucketed findings.
+Change it anytime: `v=4` · `v=1` · `v=0`. Grok defaults to `v=3`; Gemini and Antigravity 2 default to `v=2`.
+
+### 📌 Response Stamps
+
+Every response opens and closes with a unique timestamped ID:
+```
+`[2026-08-01 07:29 PM - REQ-2026213-192901 - Your Topic Here]`
+```
+Useful for logging, referencing past responses, and keeping long sessions auditable. Stamps appear on **every** turn — including `v=0` and slash command responses.
+
+### 🧠 Expert Context Table
+
+Immediately after the stamp, each response begins with a structured header:
+- **Expert(s)** — the domain specialist(s) handling the query
+- **Refined Question** — your question reframed as a precise, actionable prompt
+- **Response Plan** — the strategy before the answer starts
+- **Keywords** — a technical jargon index, but only at `v=4` and above
 
 ### 🔁 Expansion Layer
-At `v=3` and above, every response appends:
-- **🔗 See Also** — specific named tools, frameworks, or standards worth knowing
-- **🕳️ Rabbit Holes** — deep-dive directions for the curious
 
-Entries are required to be specific (e.g. `gopls go_symbol_references`, not just "code navigation tools").
+At `v=3` and above, every response automatically appends:
+- **🔗 See Also** — specific named tools, frameworks, or standards directly relevant to the topic
+- **🕳️ Rabbit Holes** — deep-dive directions worth exploring further
+
+Entries must be specific — `gopls go_symbol_references`, not "code navigation tools". The number of entries scales with verbosity: 2 at `v=3`, 3 at `v=4`, 4–5 at `v=5`.
+
+### ⚔️ RISEN Audit Engine (`/review`)
+
+Type `/review` after any response to trigger an adversarial red-team critique. The AI switches into the role of a security and quality auditor — finding logic gaps, edge cases, and protocol violations in its own output. Results come back as a structured report with `PASS / PASS WITH WARNINGS / FAIL` verdicts and severity-bucketed findings (High / Medium / Low).
 
 ---
 

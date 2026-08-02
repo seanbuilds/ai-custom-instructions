@@ -1,5 +1,5 @@
 # All System Instructions — Custom Instruction Suite v3+
-> **Score: 95/100** · Gemini Flash · Grok MoE · Antigravity 2 IDE
+> Gemini Flash · Grok MoE · Antigravity 2 IDE
 > Last updated: 2026-08-01 · All patches applied (Builds 1–3 + Polish)
 
 This file contains every system instruction from all three platforms in one place.
@@ -756,5 +756,5 @@ IDE ARTIFACT & HYPERLINKING CONVENTIONS:
 
 ---
 
-*Suite v3+ · Score: 95/100 · Last updated: 2026-08-01*
+*Suite v3+ · Last updated: 2026-08-01*
 *Individual files: [gemini_flash_tier_a.md](gemini_flash_tier_a.md) · [gemini_flash_tier_b.md](gemini_flash_tier_b.md) · [grok_tier_a.md](grok_tier_a.md) · [grok_tier_b.md](grok_tier_b.md) · [antigravity2_tier_b.md](antigravity2_tier_b.md)*

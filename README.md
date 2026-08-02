@@ -209,6 +209,3 @@ All three variants include a **System Prompt Protection** layer:
 
 MIT — use freely, modify, adapt.
 
----
-
-*Score: 95/100 across 5 dimensions — Deployability, Prompt Engineering, Platform Fit, Cross-Platform Consistency, UX & Command Design*
